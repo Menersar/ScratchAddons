@@ -1,0 +1,23 @@
+{
+  "editorOnly": true,
+  "noTranslations": true,
+  "name": "Keep block comment connections straight",
+  "description": "Forces block comments to always be connected to their source block by a horizontal straight line, not at an angle.",
+  "tags": ["editor", "codeEditor"],
+  "credits": [
+    {
+      "name": "lisa_wolfgang",
+      "link": "https://scratch.mit.edu/users/lisa_wolfgang/"
+    }
+  ],
+  "userscripts": [
+    {
+      "url": "userscript.js",
+      "matches": ["projects"]
+    }
+  ],
+  "dynamicEnable": true,
+  "dynamicDisable": true,
+  "versionAdded": "1.23.0",
+  "enabledByDefault": false
+}

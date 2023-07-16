@@ -9,9 +9,8 @@
   display: block;
   font-size: 0.75rem;
   font-weight: normal;
-  line-height: normal;
-  padding-bottom: 8px;
-  white-space: normal;
+  line-height: 0px;
+  padding-bottom: 15px;
 }
 
 .sa-compact-profile-icon {

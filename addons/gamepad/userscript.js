@@ -1,5 +1,4 @@
 import GamepadLib from "./gamepadlib.js";
-import addSmallStageClass from "../../libraries/common/cs/small-stage.js";
 
 export default async function ({ addon, console, msg }) {
   const vm = addon.tab.traps.vm;
@@ -287,7 +286,23 @@ export default async function ({ addon, console, msg }) {
     editor.focus();
   });
 
-  addSmallStageClass();
+  if (addon.tab.redux.state && addon.tab.redux.state.scratchGui.stageSize.stageSize === "small") {
+    document.body.classList.add("sa-gamepad-small");
+  }
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (e.target.closest("[class*='stage-header_stage-button-first']:not(.sa-hide-stage-button)")) {
+        document.body.classList.add("sa-gamepad-small");
+      } else if (
+        e.target.closest("[class*='stage-header_stage-button-last']") ||
+        e.target.closest(".sa-hide-stage-button")
+      ) {
+        document.body.classList.remove("sa-gamepad-small");
+      }
+    },
+    { capture: true }
+  );
 
   const virtualCursorElement = document.createElement("img");
   virtualCursorElement.hidden = true;
@@ -334,7 +349,6 @@ export default async function ({ addon, console, msg }) {
   });
 
   let getCanvasSize;
-  // Support modern ResizeObserver and slow getBoundingClientRect version for improved browser support (matters for TurboWarp)
   if (window.ResizeObserver) {
     let canvasWidth = width;
     let canvasHeight = height;
@@ -376,16 +390,18 @@ export default async function ({ addon, console, msg }) {
   };
   const handleGamepadButtonDown = (e) => postKeyboardData(e.detail, true);
   const handleGamepadButtonUp = (e) => postKeyboardData(e.detail, false);
-  const handleGamepadMouseDown = () => {
+  const handleGamepadMouseDown = (e) => {
     virtualCursorSetDown(true);
     postMouseData({
       isDown: true,
+      button: e.detail,
     });
   };
-  const handleGamepadMouseUp = () => {
+  const handleGamepadMouseUp = (e) => {
     virtualCursorSetDown(false);
     postMouseData({
       isDown: false,
+      button: e.detail,
     });
   };
   const handleGamepadMouseMove = (e) => {
@@ -407,8 +423,7 @@ export default async function ({ addon, console, msg }) {
 
   while (true) {
     const target = await addon.tab.waitForElement(
-      // Full screen button
-      '[class^="stage-header_stage-size-row"] [class^="button_outlined-button"], [class*="stage-header_unselect-wrapper_"] > [class^="button_outlined-button"]',
+      '[class^="stage-header_embed-buttons_"], [class^="stage-header_stage-size-row"], [class^="stage-header_stage-menu-wrapper"] > [class^="button_outlined-button"]',
       {
         markAsSeen: true,
         reduxEvents: [
@@ -420,7 +435,7 @@ export default async function ({ addon, console, msg }) {
       }
     );
     container.dataset.editorMode = addon.tab.editorMode;
-    if (target.closest('[class^="stage-header_stage-size-row"]')) {
+    if (target.className.includes("stage-size-row")) {
       addon.tab.appendToSharedSpace({ space: "stageHeader", element: container, order: 1 });
     } else {
       addon.tab.appendToSharedSpace({ space: "fullscreenStageHeader", element: container, order: 0 });

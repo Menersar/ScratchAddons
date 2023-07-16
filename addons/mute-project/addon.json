@@ -1,4 +1,5 @@
 {
+  "noTranslations": true,
   "name": "Muted project player mode",
   "description": "Ctrl+Click the green flag to mute/unmute the project.",
   "info": [
@@ -19,17 +20,9 @@
       "matches": ["projects", "projectEmbeds"]
     }
   ],
-  "userstyles": [
-    {
-      "url": "hide-icon.css",
-      "matches": ["projects", "projectEmbeds"],
-      "if": {
-        "addonEnabled": ["vol-slider"]
-      }
-    }
-  ],
   "dynamicEnable": true,
   "dynamicDisable": true,
   "versionAdded": "1.7.0",
+  "enabledByDefault": true,
   "tags": ["editor", "projectPlayer", "recommended"]
 }

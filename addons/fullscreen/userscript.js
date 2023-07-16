@@ -3,6 +3,14 @@
  * and for hiding the scrollbar in full screen.
  */
 export default async function ({ addon, console }) {
+  const vm = addon.tab.traps.vm;
+  const updateStageSize = () => {
+    document.documentElement.style.setProperty('--sa-fullscreen-width', vm.runtime.stageWidth);
+    document.documentElement.style.setProperty('--sa-fullscreen-height', vm.runtime.stageHeight);
+  };
+  updateStageSize();
+  vm.on('STAGE_SIZE_CHANGED', updateStageSize);
+
   // "Browser fullscreen" is defined as the mode that hides the browser UI.
   function updateBrowserFullscreen() {
     if (addon.settings.get("browserFullscreen") && !addon.self.disabled) {
@@ -56,7 +64,7 @@ export default async function ({ addon, console }) {
       if (renderer) renderer.resize(stageSize.width, stageSize.height);
       // Scratch uses the `transform` CSS property on a stage overlay element
       // to control the scaling of variable monitors.
-      const scale = stageSize.width / 480;
+      const scale = stageSize.width / vm.runtime.stageWidth;
       monitorScaler.style.transform = `scale(${scale}, ${scale})`;
     });
     resizeObserver.observe(stage);

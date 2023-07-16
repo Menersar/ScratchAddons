@@ -1,4 +1,5 @@
 {
+  "editorOnly": true,
   "name": "Data category tweaks",
   "description": "Provides tweaks for the Data (\"Variables\") block category.",
   "credits": [
@@ -18,18 +19,21 @@
   "versionAdded": "1.7.0",
   "settings": [
     {
+      "dynamic": true,
       "name": "Separate List Category",
       "id": "separateListCategory",
       "type": "boolean",
       "default": true
     },
     {
+      "dynamic": true,
       "name": "Separate Sprite-only Variables",
       "id": "separateLocalVariables",
       "type": "boolean",
       "default": false
     },
     {
+      "dynamic": true,
       "name": "Move data blocks above variables list",
       "id": "moveReportersDown",
       "type": "boolean",

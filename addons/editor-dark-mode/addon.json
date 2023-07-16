@@ -12,19 +12,18 @@
       "name": "infinitytec",
       "note": "3.Dark, 3.Darker",
       "id": "darker",
-      "link": "https://github.com/infinitytec"
+      "link": "https://scratch.mit.edu/users/infinitytec/"
     },
     {
       "name": "_nix",
       "note": "Dark editor",
       "id": "dark",
-      "link": "https://github.com/towerofnix"
+      "link": "https://scratch.mit.edu/users/_nix/"
     },
     {
-      "name": "GarboMuffin",
-      "note": "TurboWarp Dark",
-      "id": "twdark",
-      "link": "https://github.com/GarboMuffin"
+      "name": "Sidekick",
+      "note": "Sidekick Dark",
+      "id": "sidekickdark"
     }
   ],
   "customCssVariables": [
@@ -56,21 +55,6 @@
         "type": "textColor",
         "black": "grayscale(100%)",
         "white": "brightness(0) invert(1) opacity(0.75)",
-        "source": {
-          "type": "settingValue",
-          "settingId": "page"
-        }
-      }
-    },
-    {
-      "name": "page-loader",
-      "value": {
-        "type": "textColor",
-        "black": "#4d97ff",
-        "white": {
-          "type": "settingValue",
-          "settingId": "page"
-        },
         "source": {
           "type": "settingValue",
           "settingId": "page"
@@ -123,6 +107,28 @@
       }
     },
     {
+      "name": "primary-transparent25",
+      "value": {
+        "type": "multiply",
+        "source": {
+          "type": "settingValue",
+          "settingId": "primary"
+        },
+        "a": 0.25
+      }
+    },
+    {
+      "name": "primary-transparent20",
+      "value": {
+        "type": "multiply",
+        "source": {
+          "type": "settingValue",
+          "settingId": "primary"
+        },
+        "a": 0.2
+      }
+    },
+    {
       "name": "primary-transparent15",
       "value": {
         "type": "multiply",
@@ -131,6 +137,17 @@
           "settingId": "primary"
         },
         "a": 0.15
+      }
+    },
+    {
+      "name": "primary-overlay",
+      "value": {
+        "type": "multiply",
+        "source": {
+          "type": "settingValue",
+          "settingId": "primary"
+        },
+        "a": 0.9
       }
     },
     {
@@ -147,9 +164,9 @@
             "type": "settingValue",
             "settingId": "primary"
           },
-          "r": 0.85,
-          "g": 0.85,
-          "b": 0.85
+          "r": 0.66,
+          "g": 0.76,
+          "b": 0.8
         },
         "white": {
           "type": "brighten",
@@ -329,8 +346,8 @@
       "name": "selectorSelection-filter",
       "value": {
         "type": "textColor",
-        "black": "drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.15)",
-        "white": "brightness(0) invert(1) drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.15)",
+        "black": "none",
+        "white": "brightness(0) invert(1)",
         "source": {
           "type": "settingValue",
           "settingId": "selectorSelection"
@@ -380,8 +397,8 @@
       "name": "accent-desaturateFilter",
       "value": {
         "type": "textColor",
-        "black": "grayscale(100%) opacity(0.5)",
-        "white": "brightness(0) invert(1) opacity(0.3)",
+        "black": "saturate(0)",
+        "white": "brightness(0) invert(1) opacity(0.7)",
         "source": {
           "type": "settingValue",
           "settingId": "accent"
@@ -440,7 +457,7 @@
               "type": "makeHsv",
               "h": {
                 "type": "settingValue",
-                "settingId": "page"
+                "settingId": "primary"
               },
               "s": 1,
               "v": 0.67
@@ -449,7 +466,7 @@
               "type": "makeHsv",
               "h": {
                 "type": "settingValue",
-                "settingId": "page"
+                "settingId": "primary"
               },
               "s": 0.5,
               "v": 1
@@ -657,17 +674,6 @@
       }
     },
     {
-      "name": "workspace-insertionMarker",
-      "value": {
-        "type": "textColor",
-        "black": "#000000",
-        "source": {
-          "type": "settingValue",
-          "settingId": "workspace"
-        }
-      }
-    },
-    {
       "name": "categoryMenu-text",
       "value": {
         "type": "textColor",
@@ -695,18 +701,6 @@
         "type": "textColor",
         "black": "rgba(87, 124, 155, 0.13)",
         "white": "rgba(255, 255, 255, 0.05)",
-        "source": {
-          "type": "settingValue",
-          "settingId": "categoryMenu"
-        }
-      }
-    },
-    {
-      "name": "categoryMenu-hoverText",
-      "value": {
-        "type": "textColor",
-        "black": "#3373cc",
-        "white": "#80b5ff",
         "source": {
           "type": "settingValue",
           "settingId": "categoryMenu"
@@ -820,10 +814,6 @@
     {
       "url": "extension_icons.js",
       "matches": ["projects"]
-    },
-    {
-      "url": "paint_icons.js",
-      "matches": ["projects"]
     }
   ],
   "userstyles": [
@@ -855,91 +845,98 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Page background",
       "id": "page",
       "type": "color",
       "default": "#111111"
     },
     {
+      "dynamic": true,
       "name": "Highlight color",
       "id": "primary",
       "type": "color",
-      "default": "#855cd6"
+      "default": "#4d97ff"
     },
     {
+      "dynamic": true,
       "name": "Text and icon highlight color",
       "id": "highlightText",
       "type": "color",
-      "default": "#ccb3ff"
+      "default": "#4d97ff"
     },
     {
+      "dynamic": true,
       "name": "Menu bar background",
       "id": "menuBar",
       "type": "color",
       "default": "#202020"
     },
     {
-      "name": "Popup backdrop color",
-      "id": "popup",
-      "type": "color",
-      "default": "#000a",
-      "allowTransparency": true
-    },
-    {
+      "dynamic": true,
       "name": "Active tab background",
       "id": "activeTab",
       "type": "color",
       "default": "#202020"
     },
     {
+      "dynamic": true,
       "name": "Inactive tab background",
       "id": "tab",
       "type": "color",
       "default": "#151515"
     },
     {
+      "dynamic": true,
       "name": "Sprite pane background",
       "id": "selector",
       "type": "color",
       "default": "#202020"
     },
     {
+      "dynamic": true,
       "name": "Costume/sound list background",
       "id": "selector2",
       "type": "color",
       "default": "#202020"
     },
     {
+      "dynamic": true,
       "name": "Selected sprite/costume/sound background",
       "id": "selectorSelection",
       "type": "color",
       "default": "#111111"
     },
     {
+      "dynamic": true,
       "name": "Accent background",
       "id": "accent",
       "type": "color",
       "default": "#151515"
     },
     {
+      "dynamic": true,
       "name": "Input background",
       "id": "input",
       "type": "color",
       "default": "#202020"
     },
     {
+      "dynamic": true,
       "name": "Code area background",
       "id": "workspace",
       "type": "color",
       "default": "#151515"
     },
     {
+      "dynamic": true,
       "name": "Block category menu background",
       "id": "categoryMenu",
       "type": "color",
       "default": "#202020"
     },
     {
+      "dynamic": true,
       "name": "Block palette background",
       "id": "palette",
       "type": "color",
@@ -947,18 +944,21 @@
       "allowTransparency": true
     },
     {
+      "dynamic": true,
       "name": "Full screen background",
       "id": "fullscreen",
       "type": "color",
       "default": "#000000"
     },
     {
+      "dynamic": true,
       "name": "Full screen header background",
       "id": "stageHeader",
       "type": "color",
       "default": "#000000"
     },
     {
+      "dynamic": true,
       "name": "Border color",
       "id": "border",
       "type": "color",
@@ -966,18 +966,21 @@
       "allowTransparency": true
     },
     {
+      "dynamic": true,
       "name": "Show workspace dots",
       "id": "dots",
       "type": "boolean",
       "default": false
     },
     {
-      "name": "Change the costume editor background",
+      "dynamic": true,
+      "name": "Change the costume editor background and selection borders",
       "id": "affectPaper",
       "type": "boolean",
       "default": true
     },
     {
+      "dynamic": true,
       "name": "Change the colors of variables, lists, speech bubbles, and answer inputs on the stage",
       "id": "affectStage",
       "type": "boolean",
@@ -991,36 +994,9 @@
       "description": "A dark theme based on a userscript by infinitytec",
       "values": {
         "page": "#111111",
-        "primary": "#855cd6",
-        "highlightText": "#ccb3ff",
-        "menuBar": "#202020",
-        "popup": "#000a",
-        "activeTab": "#202020",
-        "tab": "#151515",
-        "selector": "#202020",
-        "selector2": "#202020",
-        "selectorSelection": "#111111",
-        "accent": "#151515",
-        "input": "#202020",
-        "workspace": "#151515",
-        "categoryMenu": "#202020",
-        "palette": "#202020cc",
-        "fullscreen": "#000000",
-        "stageHeader": "#000000",
-        "border": "#ffffff0d",
-        "dots": false
-      }
-    },
-    {
-      "name": "3.Darker (blue)",
-      "id": "3darker-blue",
-      "description": "3.Darker with a blue accent color",
-      "values": {
-        "page": "#111111",
         "primary": "#4d97ff",
         "highlightText": "#4d97ff",
         "menuBar": "#202020",
-        "popup": "#000a",
         "activeTab": "#202020",
         "tab": "#151515",
         "selector": "#202020",
@@ -1046,7 +1022,6 @@
         "primary": "#4d97ff",
         "highlightText": "#4d97ff",
         "menuBar": "#2f4066",
-        "popup": "#000a",
         "activeTab": "#2f4066",
         "tab": "#273552",
         "selector": "#2f4066",
@@ -1072,7 +1047,6 @@
         "primary": "#47566b",
         "highlightText": "#4d97ff",
         "menuBar": "#47566b",
-        "popup": "#47566be6",
         "activeTab": "#555555",
         "tab": "#444444",
         "selector": "#333333",
@@ -1094,14 +1068,13 @@
       "id": "experimentalDark",
       "description": "A dark theme by Maximouse based on a userstyle. Not experimental",
       "values": {
-        "page": "#2e3238",
-        "primary": "#855cd6",
-        "highlightText": "#ccb3ff",
-        "menuBar": "#855cd6",
-        "popup": "#000a",
+        "page": "#263241",
+        "primary": "#4d97ff",
+        "highlightText": "#4d97ff",
+        "menuBar": "#4d97ff",
         "activeTab": "#282828",
         "tab": "#202020",
-        "selector": "#292d32",
+        "selector": "#252c37",
         "selector2": "#202020",
         "selectorSelection": "#282828",
         "accent": "#282828",
@@ -1116,15 +1089,14 @@
       }
     },
     {
-      "name": "TurboWarp Dark",
-      "id": "tw-dark",
+      "name": "Sidekick Dark",
+      "id": "sidekick-dark",
       "description": "A dark theme based on TurboWarp's dark mode.",
       "values": {
         "page": "#111111",
         "primary": "#ff4d4d",
         "highlightText": "#ff4d4d",
         "menuBar": "#333333",
-        "popup": "#333a",
         "activeTab": "#1e1e1e",
         "tab": "#2e2e2e",
         "selector": "#1e1e1e",
@@ -1150,7 +1122,6 @@
         "primary": "#179fd7ff",
         "highlightText": "#1e9ed6",
         "menuBar": "#9c9ea2ff",
-        "popup": "#00000099",
         "activeTab": "#e6e8e8",
         "tab": "#f1f2f2ff",
         "selector": "#e6e8e8",
@@ -1176,7 +1147,6 @@
         "primary": "#5498c7",
         "highlightText": "#21211f",
         "menuBar": "#c0c3c6",
-        "popup": "#00000099",
         "activeTab": "#b9d7e5",
         "tab": "#adadb5",
         "selector": "#6a6a6a",
@@ -1199,36 +1169,9 @@
       "description": "The colors normally used by Scratch",
       "values": {
         "page": "#e5f0ff",
-        "primary": "#855cd6",
-        "highlightText": "#855cd6",
-        "menuBar": "#855cd6",
-        "popup": "#4d97ffe6",
-        "activeTab": "#ffffff",
-        "tab": "#d9e3f2",
-        "selector": "#e9f1fc",
-        "selector2": "#d9e3f2",
-        "selectorSelection": "#ffffff",
-        "accent": "#ffffff",
-        "input": "#ffffff",
-        "workspace": "#f9f9f9",
-        "categoryMenu": "#ffffff",
-        "palette": "#f9f9f9cc",
-        "fullscreen": "#ffffff",
-        "stageHeader": "#e8edf1",
-        "border": "#00000026",
-        "dots": true
-      }
-    },
-    {
-      "name": "Scratch's default colors (blue)",
-      "id": "scratch-blue",
-      "description": "The colors originally used by Scratch 3.0",
-      "values": {
-        "page": "#e5f0ff",
         "primary": "#4d97ff",
         "highlightText": "#4d97ff",
         "menuBar": "#4d97ff",
-        "popup": "#4d97ffe6",
         "activeTab": "#ffffff",
         "tab": "#d9e3f2",
         "selector": "#e9f1fc",
@@ -1252,11 +1195,6 @@
   "presetPreview": {
     "type": "palette",
     "colors": ["primary", "menuBar", "page", "accent", "workspace", "selector"]
-  },
-  "latestUpdate": {
-    "version": "1.33.2",
-    "temporaryNotice": "The presets for this addon have been updated to use Scratch's new purple accent color. Presets that use blue are still available as well.",
-    "isMajor": true
   },
   "tags": ["editor", "theme", "featured"],
   "enabledByDefault": false

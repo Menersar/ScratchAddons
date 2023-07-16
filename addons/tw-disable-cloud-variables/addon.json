@@ -1,0 +1,13 @@
+{
+  "noTranslations": true,
+  "name": "Disable cloud variables",
+  "description": "Disable cloud variables by default. You can still re-enable them using the Edit > Enable cloud variables menu.",
+  "userscripts": [
+    {
+      "url": "userscript.js",
+      "matches": ["https://scratch.mit.edu/projects/*"]
+    }
+  ],
+  "tags": ["danger"],
+  "enabledByDefault": false
+}

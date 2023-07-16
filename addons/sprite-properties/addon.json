@@ -1,11 +1,12 @@
 {
+  "editorOnly": true,
   "name": "Collapsing sprite properties",
   "description": "Hides the sprite properties panel by default, like in Scratch 2.0. Use the info button on the currently selected sprite or double-click a sprite to show the properties panel again. To re-hide it, use the collapse button in the properties panel or double-click a sprite.",
   "tags": ["editor", "recommended"],
   "credits": [
     {
       "name": "lisa_wolfgang",
-      "link": "https://github.com/lisa-wolfgang/"
+      "link": "https://scratch.mit.edu/users/lisa_wolfgang/"
     }
   ],
   "userstyles": [
@@ -40,12 +41,14 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Automatically collapse when mouse leaves sprite panel",
       "id": "autoCollapse",
       "type": "boolean",
       "default": false
     },
     {
+      "dynamic": true,
       "name": "Collapse panel by default",
       "id": "hideByDefault",
       "type": "boolean",
@@ -57,6 +60,7 @@
       }
     },
     {
+      "dynamic": true,
       "name": "Animation speed",
       "id": "transitionDuration",
       "type": "select",

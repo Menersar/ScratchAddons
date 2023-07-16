@@ -1,11 +1,13 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Snap scripts to grid",
   "description": "Drag a script to automatically align its position to the code area dots.",
   "tags": ["editor", "codeEditor", "featured"],
   "credits": [
     {
       "name": "CST1229",
-      "link": "https://github.com/CST1229"
+      "link": "https://scratch.mit.edu/users/CST1229/"
     },
     {
       "name": "TheColaber",
@@ -24,6 +26,7 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Grid size (px)",
       "id": "grid",
       "type": "integer",

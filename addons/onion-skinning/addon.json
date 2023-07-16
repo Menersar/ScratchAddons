@@ -1,4 +1,5 @@
 {
+  "editorOnly": true,
   "name": "Onion skinning",
   "description": "Shows transparent overlays of previous or next costumes when editing a costume. Controlled by buttons under the costume editor by the zoom buttons.",
   "credits": [
@@ -106,5 +107,5 @@
   "tags": ["editor", "costumeEditor", "recommended"],
   "dynamicEnable": true,
   "dynamicDisable": true,
-  "enabledByDefault": false
+  "enabledByDefault": true
 }

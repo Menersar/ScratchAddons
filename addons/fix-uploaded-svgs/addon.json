@@ -12,5 +12,5 @@
   "dynamicDisable": true,
   "versionAdded": "1.4.0",
   "tags": ["editor", "costumeEditor"],
-  "enabledByDefault": false
+  "enabledByDefault": true
 }

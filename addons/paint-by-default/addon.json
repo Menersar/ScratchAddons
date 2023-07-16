@@ -1,4 +1,6 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Paint costume by default",
   "description": "Changes the default action of \"Choose a Sprite/Costume/Backdrop/Sound\" buttons, which open the library by default.",
   "credits": [
@@ -14,6 +16,7 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "id": "sprite",
       "name": "Add sprite",
       "type": "select",
@@ -38,6 +41,7 @@
       "default": "paint"
     },
     {
+      "dynamic": true,
       "id": "costume",
       "name": "Add costume",
       "type": "select",
@@ -62,6 +66,7 @@
       "default": "paint"
     },
     {
+      "dynamic": true,
       "id": "backdrop",
       "name": "Add backdrop",
       "type": "select",
@@ -86,6 +91,7 @@
       "default": "paint"
     },
     {
+      "dynamic": true,
       "id": "sound",
       "name": "Add sound",
       "type": "select",

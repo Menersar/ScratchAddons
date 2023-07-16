@@ -196,7 +196,7 @@ export default async function ({ addon, console, msg }) {
     };
 
     const oldStepScrollAnimation = Blockly.Flyout.prototype.stepScrollAnimation;
-    Blockly.Flyout.prototype.stepScrollAnimation = function () {
+    Blockly.Flyout.prototype.stepScrollAnimation = function (...args) {
       // scrolling should not be animated when opening the flyout in category click mode
       if (!scrollAnimation) {
         this.scrollbar_.set(this.scrollTarget);
@@ -204,7 +204,7 @@ export default async function ({ addon, console, msg }) {
         scrollAnimation = true;
         return;
       }
-      oldStepScrollAnimation.call(this);
+      return oldStepScrollAnimation.apply(this, args);
     };
 
     // add flyout size to the workspace dimensions
@@ -229,12 +229,7 @@ export default async function ({ addon, console, msg }) {
   while (true) {
     flyOut = await addon.tab.waitForElement(".blocklyFlyout", {
       markAsSeen: true,
-      reduxEvents: [
-        "scratch-gui/mode/SET_PLAYER",
-        "scratch-gui/locales/SELECT_LOCALE",
-        "scratch-gui/theme/SET_THEME",
-        "fontsLoaded/SET_FONTS_LOADED",
-      ],
+      reduxEvents: ["scratch-gui/mode/SET_PLAYER", "scratch-gui/locales/SELECT_LOCALE", "fontsLoaded/SET_FONTS_LOADED"],
       reduxCondition: (state) => !state.scratchGui.mode.isPlayerOnly,
     });
     scrollBar = document.querySelector(".blocklyFlyoutScrollbar");

@@ -15,7 +15,7 @@ export default async function ({ addon, console, msg }) {
         fill: #fff !important;
     }
     `;
-    for (let userstyle of document.querySelectorAll(".scratch-addons-style[data-addon-id='editor-theme3']")) {
+    for (let userstyle of document.querySelectorAll(".scratch-addons-style[data-addons*='editor-theme3']")) {
       if (userstyle.disabled) continue;
       style.textContent += userstyle.textContent;
     }
@@ -199,6 +199,7 @@ export default async function ({ addon, console, msg }) {
       let y = g.getAttribute("transform").match(/translate\((.*?),(.*?)\)/)[2] || 0;
       xArr.push(x * (isExportPNG ? 2 : 1));
       yArr.push(y * (isExportPNG ? 2 : 1));
+      g.style.display = "";
     });
 
     svgchild.setAttribute(

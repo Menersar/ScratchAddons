@@ -304,20 +304,16 @@ export default async ({ addon, console, msg }) => {
         recordElem.textContent = msg("starting-in", { secs: roundedDelay - index });
         await new Promise((resolve) => setTimeout(resolve, 975));
       }
-      setTimeout(
-        () => {
-          recordElem.textContent = msg("stop");
+      setTimeout(() => {
+        recordElem.textContent = msg("stop");
 
-          recorder.start(1000);
-        },
-        (delay - roundedDelay) * 1000
-      );
+        recorder.start(1000);
+      }, (delay - roundedDelay) * 1000);
     };
     if (!recordElem) {
       recordElem = Object.assign(document.createElement("div"), {
         className: "sa-record " + elem.className,
         textContent: msg("record"),
-        title: msg("added-by"),
       });
       recordElem.addEventListener("click", async () => {
         if (isRecording) {

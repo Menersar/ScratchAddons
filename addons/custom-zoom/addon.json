@@ -1,4 +1,6 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Customizable code area zoom",
   "description": "Choose custom settings for the minimum, maximum, speed, and start size of the zoom of scripts in the code area, and autohide the controls.",
   "tags": ["editor", "codeEditor", "featured"],
@@ -24,6 +26,7 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Maximum Zoom (100-500%)",
       "id": "maxZoom",
       "type": "integer",
@@ -32,6 +35,7 @@
       "max": 500
     },
     {
+      "dynamic": true,
       "name": "Minimum Zoom (1-100%)",
       "id": "minZoom",
       "type": "integer",
@@ -40,6 +44,7 @@
       "max": 100
     },
     {
+      "dynamic": true,
       "name": "Start Zoom (50-500%)",
       "id": "startZoom",
       "type": "integer",
@@ -48,6 +53,7 @@
       "max": 500
     },
     {
+      "dynamic": true,
       "name": "Zoom Speed (50-200%)",
       "id": "zoomSpeed",
       "type": "integer",
@@ -62,6 +68,7 @@
       "default": false
     },
     {
+      "dynamic": true,
       "name": "Autohide Animation Speed",
       "id": "speed",
       "type": "select",

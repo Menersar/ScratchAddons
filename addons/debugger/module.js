@@ -62,6 +62,9 @@ const setSteppingThread = (thread) => {
 };
 
 const compensateForTimePassedWhilePaused = (thread, pauseState) => {
+  if (thread.timer) {
+    thread.timer.startTime += vm.runtime.currentMSecs - pauseState.time;
+  }
   const stackFrame = thread.peekStackFrame();
   if (stackFrame && stackFrame.executionContext && stackFrame.executionContext.timer) {
     stackFrame.executionContext.timer.startTime += vm.runtime.currentMSecs - pauseState.time;
@@ -146,6 +149,9 @@ export const getRunningThread = () => steppingThread;
 // Returns if we should continue executing this thread.
 const singleStepThread = (thread) => {
   if (thread.status === STATUS_DONE) {
+    return false;
+  }
+  if (thread.isCompiled) {
     return false;
   }
 
@@ -271,6 +277,9 @@ const findNewSteppingThread = (startingIndex) => {
     const possibleNewThread = threads[i];
     if (possibleNewThread.updateMonitor) {
       // Never single-step monitor update threads.
+      continue;
+    }
+    if (possibleNewThread.isCompiled) {
       continue;
     }
     const status = getRealStatus(possibleNewThread);

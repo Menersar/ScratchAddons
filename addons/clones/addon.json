@@ -1,4 +1,5 @@
 {
+  "editorOnly": true,
   "name": "Clone counter",
   "description": "Adds a counter above the stage in the editor which shows the total amount of clones.",
   "credits": [
@@ -7,11 +8,7 @@
     },
     {
       "name": "OregSam",
-      "link": "https://github.com/OregSamSas"
-    },
-    {
-      "name": "DNin01",
-      "link": "https://github.com/DNin01"
+      "link": "https://scratch.mit.edu/users/simiagain/"
     }
   ],
   "dynamicEnable": true,
@@ -31,12 +28,7 @@
   ],
   "settings": [
     {
-      "id": "projectpage",
-      "name": "Show on project page",
-      "default": false,
-      "type": "boolean"
-    },
-    {
+      "dynamic": true,
       "id": "showicononly",
       "name": "Show icon only",
       "default": false,
@@ -44,8 +36,9 @@
     }
   ],
   "latestUpdate": {
-    "version": "1.31.0",
-    "newSettings": ["projectpage"]
+    "version": "1.28.0",
+    "newSettings": ["showicononly"],
+    "isMajor": false
   },
   "tags": ["editor", "projectPlayer", "recommended"],
   "enabledByDefault": false

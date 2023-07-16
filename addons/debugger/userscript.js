@@ -3,7 +3,6 @@ import createLogsTab from "./logs.js";
 import createThreadsTab from "./threads.js";
 import createPerformanceTab from "./performance.js";
 import Utils from "../find-bar/blockly/Utils.js";
-import addSmallStageClass from "../../libraries/common/cs/small-stage.js";
 
 const removeAllChildren = (element) => {
   while (element.firstChild) {
@@ -36,12 +35,6 @@ export default async function ({ addon, console, msg }) {
     setPaused(true);
     setInterfaceVisible(true);
   };
-
-  addon.tab.addBlock("sa-pause", {
-    args: [],
-    callback: pause,
-    hidden: true,
-  });
   addon.tab.addBlock("\u200B\u200Bbreakpoint\u200B\u200B", {
     args: [],
     displayName: msg("block-breakpoint"),
@@ -111,6 +104,21 @@ export default async function ({ addon, console, msg }) {
     className: "sa-debugger-tab-content",
   });
 
+  const compilerWarning = document.createElement("a");
+  compilerWarning.addEventListener("click", () => {
+    addon.tab.redux.dispatch({
+      type: "scratch-gui/modals/OPEN_MODAL",
+      modal: "settingsModal"
+    });
+  });
+  compilerWarning.className = "sa-debugger-log sa-debugger-compiler-warning";
+  compilerWarning.textContent = "The debugger works best when the compiler is disabled.";
+  const updateCompilerWarningVisibility = () => {
+    compilerWarning.hidden = !vm.runtime.compilerOptions.enabled;
+  };
+  vm.on("COMPILER_OPTIONS_CHANGED", updateCompilerWarningVisibility);
+  updateCompilerWarningVisibility();
+
   let isInterfaceVisible = false;
   const setInterfaceVisible = (_isVisible) => {
     isInterfaceVisible = _isVisible;
@@ -159,7 +167,7 @@ export default async function ({ addon, console, msg }) {
   interfaceHeader.addEventListener("mousedown", handleStartDrag);
 
   interfaceHeader.append(tabListElement, buttonContainerElement);
-  interfaceContainer.append(interfaceHeader, tabContentContainer);
+  interfaceContainer.append(interfaceHeader, compilerWarning, tabContentContainer);
   document.body.append(interfaceContainer);
 
   const createHeaderButton = ({ text, icon, description }) => {
@@ -347,11 +355,9 @@ export default async function ({ addon, console, msg }) {
           } else if (type === "field_image") {
             const src = argInfo.src;
             if (src.endsWith("rotate-left.svg")) {
-              formattedMessage += msg("/global/blocks/anticlockwise");
+              formattedMessage += "↩";
             } else if (src.endsWith("rotate-right.svg")) {
-              formattedMessage += msg("/global/blocks/clockwise");
-            } else if (src.endsWith("green-flag.svg")) {
-              formattedMessage += msg("/global/blocks/green-flag");
+              formattedMessage += "↪";
             }
           } else {
             formattedMessage += "()";
@@ -489,8 +495,7 @@ export default async function ({ addon, console, msg }) {
   };
   logsTab = await createLogsTab(api);
   const threadsTab = await createThreadsTab(api);
-  const performanceTab = await createPerformanceTab(api);
-  const allTabs = [logsTab, threadsTab, performanceTab];
+  const allTabs = [logsTab, threadsTab];
 
   for (const message of messagesLoggedBeforeLogsTabLoaded) {
     logsTab.addLog(...message);
@@ -530,7 +535,23 @@ export default async function ({ addon, console, msg }) {
   }
   setActiveTab(allTabs[0]);
 
-  addSmallStageClass();
+  if (addon.tab.redux.state && addon.tab.redux.state.scratchGui.stageSize.stageSize === "small") {
+    document.body.classList.add("sa-debugger-small");
+  }
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (e.target.closest("[class*='stage-header_stage-button-first']:not(.sa-hide-stage-button)")) {
+        document.body.classList.add("sa-debugger-small");
+      } else if (
+        e.target.closest("[class*='stage-header_stage-button-last']") ||
+        e.target.closest(".sa-hide-stage-button")
+      ) {
+        document.body.classList.remove("sa-debugger-small");
+      }
+    },
+    { capture: true }
+  );
 
   const ogGreenFlag = vm.runtime.greenFlag;
   vm.runtime.greenFlag = function (...args) {
@@ -575,62 +596,19 @@ export default async function ({ addon, console, msg }) {
     return ogStartHats.call(this, hat, optMatchFields, ...args);
   };
 
-  const ogAddToList = vm.runtime._primitives.data_addtolist;
-  vm.runtime._primitives.data_addtolist = function (args, util) {
-    if (addon.settings.get("log_max_list_length")) {
-      const list = util.target.lookupOrCreateList(args.LIST.id, args.LIST.name);
-      if (list.value.length >= 200000) {
-        logsTab.addLog(msg("log-msg-list-append-too-long", { list: list.name }), util.thread, "internal-warn");
-      }
-    }
-    ogAddToList.call(this, args, util);
-  };
-
-  const ogInertAtList = vm.runtime._primitives.data_insertatlist;
-  vm.runtime._primitives.data_insertatlist = function (args, util) {
-    if (addon.settings.get("log_max_list_length")) {
-      const list = util.target.lookupOrCreateList(args.LIST.id, args.LIST.name);
-      if (list.value.length >= 200000) {
-        logsTab.addLog(msg("log-msg-list-insert-too-long", { list: list.name }), util.thread, "internal-warn");
-      }
-    }
-    ogInertAtList.call(this, args, util);
-  };
-
-  const ogSetVariableTo = vm.runtime._primitives.data_setvariableto;
-  vm.runtime._primitives.data_setvariableto = function (args, util) {
-    if (addon.settings.get("log_invalid_cloud_data")) {
-      const variable = util.target.lookupOrCreateVariable(args.VARIABLE.id, args.VARIABLE.name);
-      if (variable.isCloud) {
-        const value = args.VALUE.toString();
-        if (isNaN(value)) {
-          logsTab.addLog(msg("log-cloud-data-nan", { var: variable.name }), util.thread, "internal-warn");
-        } else if (value.length > 256) {
-          logsTab.addLog(msg("log-cloud-data-too-long", { var: variable.name }), util.thread, "internal-warn");
-        }
-      }
-    }
-    ogSetVariableTo.call(this, args, util);
-  };
-
   while (true) {
-    await addon.tab.waitForElement(
-      // Full screen button
-      '[class^="stage-header_stage-size-row"] [class^="button_outlined-button"], [class*="stage-header_unselect-wrapper_"] > [class^="button_outlined-button"]',
-      {
-        markAsSeen: true,
-        reduxEvents: [
-          "scratch-gui/mode/SET_PLAYER",
-          "scratch-gui/mode/SET_FULL_SCREEN",
-          "fontsLoaded/SET_FONTS_LOADED",
-          "scratch-gui/locales/SELECT_LOCALE",
-        ],
-      }
-    );
+    await addon.tab.waitForElement('[class*="stage-header_stage-size-row"]', {
+      markAsSeen: true,
+      reduxEvents: [
+        "scratch-gui/mode/SET_PLAYER",
+        "scratch-gui/mode/SET_FULL_SCREEN",
+        "fontsLoaded/SET_FONTS_LOADED",
+        "scratch-gui/locales/SELECT_LOCALE",
+      ],
+    });
     if (addon.tab.editorMode === "editor") {
       addon.tab.appendToSharedSpace({ space: "stageHeader", element: debuggerButtonOuter, order: 0 });
     } else {
-      debuggerButtonOuter.remove();
       setInterfaceVisible(false);
     }
   }

@@ -3,13 +3,6 @@ import BlockInstance from "./blockly/BlockInstance.js";
 import Utils from "./blockly/Utils.js";
 
 export default async function ({ addon, msg, console }) {
-  if (!addon.self._isDevtoolsExtension && window.initGUI) {
-    console.log("Extension running, stopping addon");
-    window._devtoolsAddonEnabled = true;
-    window.dispatchEvent(new CustomEvent("scratchAddonsDevtoolsAddonStopped"));
-    return;
-  }
-
   const Blockly = await addon.tab.traps.getBlockly();
 
   class FindBar {
@@ -285,7 +278,7 @@ export default async function ({ addon, msg, console }) {
         if (root.type === "event_whenbroadcastreceived") {
           const fieldRow = root.inputList[0].fieldRow;
           let eventName = fieldRow.find((input) => input.name === "BROADCAST_OPTION").getText();
-          addBlock("receive", msg("event", { name: eventName }), root).eventName = eventName;
+          addBlock("receive", "event " + eventName, root).eventName = eventName;
 
           continue;
         }
@@ -305,25 +298,17 @@ export default async function ({ addon, msg, console }) {
 
       let vars = map.getVariablesOfType("");
       for (const row of vars) {
-        addBlock(
-          row.isLocal ? "var" : "VAR",
-          row.isLocal ? msg("var-local", { name: row.name }) : msg("var-global", { name: row.name }),
-          row
-        );
+        addBlock(row.isLocal ? "var" : "VAR", (row.isLocal ? "var " : "VAR ") + row.name, row);
       }
 
       let lists = map.getVariablesOfType("list");
       for (const row of lists) {
-        addBlock(
-          row.isLocal ? "list" : "LIST",
-          row.isLocal ? msg("list-local", { name: row.name }) : msg("list-global", { name: row.name }),
-          row
-        );
+        addBlock(row.isLocal ? "list" : "LIST", (row.isLocal ? "list " : "LIST ") + row.name, row);
       }
 
       const events = this.getCallsToEvents();
       for (const event of events) {
-        addBlock("receive", msg("event", { name: event.eventName }), event.block).eventName = event.eventName;
+        addBlock("receive", "event " + event.eventName, event.block).eventName = event.eventName;
       }
 
       const clsOrder = { flag: 0, receive: 1, event: 2, define: 3, var: 4, VAR: 5, list: 6, LIST: 7 };
@@ -518,7 +503,7 @@ export default async function ({ addon, msg, console }) {
         const assetPanel = document.querySelector("[class^=asset-panel_wrapper]");
         if (assetPanel) {
           const reactInstance = assetPanel[addon.tab.traps.getInternalKey(assetPanel)];
-          const reactProps = reactInstance.pendingProps.children[0].props;
+          const reactProps = reactInstance.child.stateNode.props;
           reactProps.onItemClick(item.data.y);
           const selectorList = assetPanel.firstChild.firstChild;
           selectorList.children[item.data.y].scrollIntoView({

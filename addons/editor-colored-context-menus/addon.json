@@ -1,4 +1,6 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Colored context menus",
   "description": "Makes block right click context menus colorful.",
   "credits": [

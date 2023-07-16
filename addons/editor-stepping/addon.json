@@ -1,4 +1,7 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
+  "noCompiler": true,
   "name": "Running block border",
   "description": "Adds a colored highlight to the blocks that are currently being executed in a project.",
   "dynamicEnable": true,
@@ -11,6 +14,7 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Highlight color",
       "id": "highlight-color",
       "type": "color",

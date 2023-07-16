@@ -1,4 +1,5 @@
 {
+  "noTranslations": true,
   "name": "File drag and drop",
   "description": "Lets you drag images and sounds from your file manager into the sprite pane or costume/sound list. You can also drag text files into lists or \"ask and wait\" question inputs.",
   "credits": [
@@ -14,6 +15,7 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "id": "use-hd-upload",
       "name": "Use HD uploads",
       "type": "boolean",
@@ -27,5 +29,5 @@
   "dynamicDisable": true,
   "versionAdded": "1.12.0",
   "tags": ["editor", "recommended"],
-  "enabledByDefault": false
+  "enabledByDefault": true
 }

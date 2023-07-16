@@ -1,10 +1,10 @@
-.tabs button:disabled {
+.sa-search-profile-invalid {
   opacity: 0.5;
   cursor: default;
 }
 
-.tabs button:disabled:hover,
-.tabs button:disabled:active {
+.sa-search-profile-invalid li:hover,
+.sa-search-profile-invalid li:active {
   background-color: transparent;
   border: none;
 }

@@ -1,4 +1,5 @@
 {
+  "editorOnly": true,
   "name": "Block palette category icons",
   "description": "Adds icons inside the colored circles that identify block categories.",
   "tags": ["editor", "codeEditor", "theme", "featured"],
@@ -13,7 +14,7 @@
   ],
   "versionAdded": "1.11.0",
   "credits": [
-    { "name": "--Explosion--", "link": "https://github.com/explosion-scratch" },
-    { "name": "RedGuy7", "link": "https://github.com/RedGuy12" }
+    { "name": "--Explosion--", "link": "https://scratch.mit.edu/users/--Explosion--/" },
+    { "name": "RedGuy7", "link": "https://scratch.mit.edu/users/RedGuy7/" }
   ]
 }

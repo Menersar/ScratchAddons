@@ -1,14 +1,25 @@
-import addSmallStageClass from "../../libraries/common/cs/small-stage.js";
-
 export default async function ({ addon, console, msg }) {
   const vm = addon.tab.traps.vm;
 
-  let showOnProjectPage = addon.settings.get("projectpage");
   let showIconOnly = addon.settings.get("showicononly");
 
-  addSmallStageClass();
+  if (addon.tab.redux.state && addon.tab.redux.state.scratchGui.stageSize.stageSize === "small") {
+    document.body.classList.add("sa-clones-small");
+  }
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (e.target.closest("[class*='stage-header_stage-button-first']")) {
+        document.body.classList.add("sa-clones-small");
+      } else if (e.target.closest("[class*='stage-header_stage-button-last']")) {
+        document.body.classList.remove("sa-clones-small");
+      }
+    },
+    { capture: true }
+  );
 
   let countContainerContainer = document.createElement("div");
+  addon.tab.displayNoneWhileDisabled(countContainerContainer);
 
   let countContainer = document.createElement("div");
   let count = document.createElement("span");
@@ -33,28 +44,29 @@ export default async function ({ addon, console, msg }) {
     const v = vm.runtime._cloneCounter;
     // performance
     if (v === lastChecked && !force) return;
-    countContainerContainer.dataset.count = lastChecked = v;
+    lastChecked = v;
+    if (v === 0) {
+      countContainerContainer.dataset.count = "none";
+    } else if (v >= vm.runtime.runtimeOptions.maxClones) {
+      countContainerContainer.dataset.count = "full";
+    } else {
+      countContainerContainer.dataset.count = "";
+    }
     if (showIconOnly) {
       count.dataset.str = v;
     } else {
       count.dataset.str = cache[v] || msg("clones", { cloneCount: v });
     }
 
-    if (v === 0 || (addon.tab.editorMode !== "editor" && !showOnProjectPage))
-      countContainerContainer.style.display = "none";
-    else addon.tab.displayNoneWhileDisabled(countContainerContainer, { display: "flex" });
+    if (v === 0) countContainerContainer.style.display = "none";
+    else countContainerContainer.style.display = "flex";
   }
 
   addon.settings.addEventListener("change", () => {
     showIconOnly = addon.settings.get("showicononly");
-    showOnProjectPage = addon.settings.get("projectpage");
     doCloneChecks(true);
   });
 
-  vm.runtime.on("targetWasRemoved", (t) => {
-    // Fix bug with inaccurate clone counter
-    if (t.isOriginal) vm.runtime.changeCloneCounter(1);
-  });
   const oldStep = vm.runtime._step;
   vm.runtime._step = function (...args) {
     const ret = oldStep.call(this, ...args);
@@ -62,6 +74,7 @@ export default async function ({ addon, console, msg }) {
     return ret;
   };
 
+  /*
   if (addon.self.enabledLate) {
     // Clone count might be inaccurate if the user deleted sprites
     // before enabling the addon
@@ -71,6 +84,7 @@ export default async function ({ addon, console, msg }) {
     }
     vm.runtime._cloneCounter = count;
   }
+  */
 
   while (true) {
     await addon.tab.waitForElement('[class*="controls_controls-container"]', {
@@ -78,7 +92,8 @@ export default async function ({ addon, console, msg }) {
       reduxEvents: ["scratch-gui/mode/SET_PLAYER", "fontsLoaded/SET_FONTS_LOADED", "scratch-gui/locales/SELECT_LOCALE"],
     });
 
-    addon.tab.appendToSharedSpace({ space: "afterStopButton", element: countContainerContainer, order: 2 });
-    doCloneChecks(true);
+    if (addon.tab.editorMode === "editor" || addon.tab.redux.state.scratchGui.mode.isEmbedded) {
+      addon.tab.appendToSharedSpace({ space: "afterStopButton", element: countContainerContainer, order: 2 });
+    }
   }
 }

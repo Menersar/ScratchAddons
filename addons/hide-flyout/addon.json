@@ -1,6 +1,8 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Auto-hiding block palette",
-  "description": "Hides the block palette unless you're hovering over it. Click the lock icon to lock it in place temporarily. Or use the \"category click\" mode to show/hide it when you click a block category.",
+  "description": "Hides the block palette if not hovered. Click the lock icon to lock it in place temporarily. Alternatively, use \"category click\" mode.",
   "credits": [
     {
       "name": "TheColaber",
@@ -66,6 +68,7 @@
   "versionAdded": "1.8.0",
   "settings": [
     {
+      "dynamic": true,
       "name": "Toggle on...",
       "id": "toggle",
       "type": "select",
@@ -86,6 +89,7 @@
       "default": "cathover"
     },
     {
+      "dynamic": true,
       "name": "Animation speed",
       "id": "speed",
       "type": "select",

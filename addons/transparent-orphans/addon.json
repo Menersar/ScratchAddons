@@ -1,4 +1,6 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Block transparency",
   "description": "Adjust the transparency for blocks in the editor, with separate options for orphaned blocks (those without a hat block at the top) and blocks that are being dragged.",
   "tags": ["editor", "codeEditor"],
@@ -16,6 +18,7 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Block transparency (%)",
       "id": "block",
       "type": "integer",
@@ -24,6 +27,7 @@
       "default": 0
     },
     {
+      "dynamic": true,
       "name": "Orphaned transparency (%)",
       "id": "orphan",
       "type": "integer",
@@ -32,6 +36,7 @@
       "default": 25
     },
     {
+      "dynamic": true,
       "name": "Dragged transparency (%)",
       "id": "dragged",
       "type": "integer",

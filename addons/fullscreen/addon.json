@@ -4,7 +4,7 @@
   "credits": [
     {
       "name": "lisa_wolfgang",
-      "link": "https://github.com/lisa-wolfgang"
+      "link": "https://scratch.mit.edu/users/lisa_wolfgang/"
     }
   ],
   "info": [
@@ -16,12 +16,14 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Open full screen project player in full screen browser mode",
       "id": "browserFullscreen",
       "type": "boolean",
       "default": true
     },
     {
+      "dynamic": true,
       "name": "Hide toolbar in full screen",
       "id": "hideToolbar",
       "type": "boolean",
@@ -72,7 +74,7 @@
       "matches": ["projects"]
     }
   ],
-  "tags": ["editor", "projectPlayer", "featured"],
+  "tags": ["editor", "projectPlayer", "featured", "beta"],
   "versionAdded": "1.21.0",
   "enabledByDefault": false
 }

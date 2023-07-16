@@ -1,4 +1,5 @@
 {
+  "editorOnly": true,
   "name": "Hide stage and sprite pane",
   "description": "Adds a button next to the \"small stage\" and \"large stage\" buttons that hides the stage and the sprite pane, making the code area much larger.",
   "credits": [

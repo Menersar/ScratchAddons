@@ -1,10 +1,12 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Alternating nested block colors",
   "description": "Makes blocks of the same category alternate between lighter and darker shades when nested inside each other. This is also known as zebra striping.",
   "credits": [
     {
       "name": "CST1229",
-      "link": "https://github.com/CST1229"
+      "link": "https://scratch.mit.edu/users/CST1229/"
     },
     {
       "name": "GarboMuffin"
@@ -29,6 +31,7 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Shade",
       "id": "shade",
       "type": "select",
@@ -45,6 +48,7 @@
       "default": "lighter"
     },
     {
+      "dynamic": true,
       "name": "Intensity (0-100%)",
       "id": "intensity",
       "type": "integer",

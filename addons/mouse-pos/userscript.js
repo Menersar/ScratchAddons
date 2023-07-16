@@ -1,5 +1,3 @@
-import addSmallStageClass from "../../libraries/common/cs/small-stage.js";
-
 export default async function ({ addon, console }) {
   var posContainerContainer = document.createElement("div");
   addon.tab.displayNoneWhileDisabled(posContainerContainer, { display: "flex" });
@@ -21,7 +19,7 @@ export default async function ({ addon, console }) {
   var x = vm.runtime.ioDevices.mouse.__scratchX ? vm.runtime.ioDevices.mouse.__scratchX : 0;
   var y = vm.runtime.ioDevices.mouse.__scratchY ? vm.runtime.ioDevices.mouse.__scratchY : 0;
 
-  const showUpdatedValue = () => pos.setAttribute("data-content", `${x}, ${y}`);
+  const showUpdatedValue = () => pos.setAttribute("data-content", `${Math.round(x)}, ${Math.round(y)}`);
 
   Object.defineProperty(vm.runtime.ioDevices.mouse, "_scratchX", {
     get: function () {
@@ -45,7 +43,20 @@ export default async function ({ addon, console }) {
     },
   });
 
-  addSmallStageClass();
+  if (addon.tab.redux.state && addon.tab.redux.state.scratchGui.stageSize.stageSize === "small") {
+    document.body.classList.add("sa-mouse-pos-small");
+  }
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (e.target.closest("[class*='stage-header_stage-button-first']")) {
+        document.body.classList.add("sa-mouse-pos-small");
+      } else if (e.target.closest("[class*='stage-header_stage-button-last']")) {
+        document.body.classList.remove("sa-mouse-pos-small");
+      }
+    },
+    { capture: true }
+  );
 
   while (true) {
     await addon.tab.waitForElement('[class*="controls_controls-container"]', {

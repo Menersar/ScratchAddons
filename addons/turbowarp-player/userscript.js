@@ -3,30 +3,31 @@ export default async function ({ addon, console, msg }) {
   let playerToggled = false;
   let scratchStage;
   let twIframeContainer = document.createElement("div");
-  twIframeContainer.className = "sa-tw-iframe-container";
+  twIframeContainer.className = "sa-sidekick-iframe-container";
   let twIframe = document.createElement("iframe");
   twIframe.setAttribute("allowtransparency", "true");
   twIframe.setAttribute("allowfullscreen", "true");
   twIframe.setAttribute(
     "allow",
+    // !!!
     "autoplay *; camera https://turbowarp.org; document-domain 'none'; fullscreen *; gamepad https://turbowarp.org; microphone https://turbowarp.org;"
   );
-  twIframe.className = "sa-tw-iframe";
-  twIframeContainer.appendChild(twIframe);
+  twIframe.className = "sa-sidekick-iframe";
+  twIframeContainer.appendChild(sidekickIframe);
 
   const button = document.createElement("button");
-  button.className = "button sa-tw-button";
-  button.title = "TurboWarp";
+  button.className = "button sa-sidekick-button";
+  button.title = "Sidekick";
 
   function removeIframe() {
     twIframeContainer.remove();
     scratchStage.style.display = "";
     button.classList.remove("scratch");
     playerToggled = false;
-    button.title = "TurboWarp";
+    button.title = "Sidekick";
   }
 
-  button.onclick = async (e) => {
+  button.onclick = async () => {
     const projectId = window.location.pathname.split("/")[2];
     let search = "";
     if (addon.tab.redux.state?.preview?.projectInfo?.public === false) {
@@ -41,13 +42,7 @@ export default async function ({ addon, console, msg }) {
       ).project_token;
       search = `#?token=${projectToken}`;
     }
-    if (action === "link" || e.ctrlKey || e.metaKey) {
-      window.open(
-        `https://turbowarp.org/${window.location.pathname.split("/")[2]}${search}`,
-        "_blank",
-        "noopener,noreferrer"
-      );
-    } else {
+    if (action === "player") {
       playerToggled = !playerToggled;
       if (playerToggled) {
         const username = await addon.auth.fetchUsername();
@@ -59,11 +54,12 @@ export default async function ({ addon, console, msg }) {
           usp.set("addons", enabledAddons.join(","));
         }
         // Apply the same fullscreen background color, consistently with the vanilla Scratch fullscreen behavior.
-        // It's not expected here to support dynamicDisable/dynamicEnable of editor-dark-mode to work exactly
+        // It's not expected here to support dynamicDisable/dyanmicEnable of editor-dark-mode to work exactly
         // like it does with vanilla.
         const fullscreenBackground =
           document.documentElement.style.getPropertyValue("--editorDarkMode-fullscreen") || "white";
         usp.set("fullscreen-background", fullscreenBackground);
+        // !!!
         const iframeUrl = `https://turbowarp.org/${projectId}/embed?${usp}${search}`;
         twIframe.src = "";
         scratchStage.parentElement.prepend(twIframeContainer);
@@ -75,6 +71,13 @@ export default async function ({ addon, console, msg }) {
         button.title = "Scratch";
         addon.tab.traps.vm.stopAll();
       } else removeIframe();
+    } else {
+      window.open(
+        // !!!
+        `https://turbowarp.org/${window.location.pathname.split("/")[2]}${search}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
     }
   };
 

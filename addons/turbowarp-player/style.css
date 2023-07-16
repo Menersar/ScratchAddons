@@ -1,4 +1,4 @@
-.preview .sa-tw-button {
+.preview .sa-sidekick-button {
   padding: 0px 5px 0px 11px;
   background: #ff4d4d;
   margin-top: 0;
@@ -6,10 +6,10 @@
   height: 2.5rem;
   font-size: 0.875rem;
 }
-.preview .sa-tw-button.scratch {
+.preview .sa-sidekick-button.scratch {
   background: #f8aa36;
 }
-.preview .sa-tw-button:before {
+.preview .sa-sidekick-button:before {
   background-image: url(icon.svg);
   display: inline-block;
   margin-top: -2px;
@@ -22,11 +22,11 @@
   vertical-align: middle;
   content: "";
 }
-.preview .sa-tw-button.scratch:before {
+.preview .sa-sidekick-button.scratch:before {
   background-image: url(https://scratch.mit.edu/favicon.ico);
 }
 
-.sa-tw-iframe-container {
+.sa-sidekick-iframe-container {
   /* Same styles as .guiPlayer */
   display: inline-block;
   position: relative;
@@ -38,11 +38,8 @@
   overflow: hidden;
 }
 
-.sa-tw-iframe {
+.sa-sidekick-iframe {
   width: 100%;
-  /* TW scratch-gui/src/lib/screen-utils.js, line 57
-     The stage height should be 360px
-     innerHeight = 360px + 44px + 12px = 416px = 100% + 10px */
   height: calc(100% + 10px);
   /* Move the stage up to align it with the project description */
   margin-top: -3px;

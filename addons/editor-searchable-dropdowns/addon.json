@@ -1,6 +1,7 @@
 {
-  "name": "Block dropdown search",
-  "description": "Allows you to search the options in block dropdowns.",
+  "editorOnly": true,
+  "name": "Searchable dropdowns",
+  "description": "Allows you to search block dropdowns.",
   "credits": [
     {
       "name": "GarboMuffin"
@@ -22,5 +23,6 @@
   ],
   "versionAdded": "1.0.0",
   "tags": ["editor", "codeEditor", "recommended"],
-  "enabledByDefault": false
+  "enabledByDefault": true,
+  "enabledByDefaultMobile": false
 }

@@ -1,0 +1,13 @@
+{
+  "noTranslations": true,
+  "name": "Disable restore points",
+  "description": "Disables all restore point creation. Be careful.",
+  "userscripts": [
+    {
+      "url": "userscript.js",
+      "matches": ["https://scratch.mit.edu/projects/*"]
+    }
+  ],
+  "tags": ["danger"],
+  "enabledByDefault": false
+}

@@ -1,4 +1,5 @@
 {
+  "noTranslations": true,
   "name": "Display stage on left side",
   "description": "Moves the stage to the left side of the editor, like in Scratch 2.0.",
   "info": [

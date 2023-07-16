@@ -1,0 +1,15 @@
+{
+  "noTranslations": true,
+  "name": "Remove feedback button",
+  "description": "Removes the feedback button from the menu bar.",
+  "userstyles": [
+    {
+      "url": "remove-feedback.css",
+      "matches": ["https://scratch.mit.edu/projects/*"]
+    }
+  ],
+  "tags": ["danger"],
+  "dynamicEnable": true,
+  "dynamicDisable": true,
+  "enabledByDefault": false
+}

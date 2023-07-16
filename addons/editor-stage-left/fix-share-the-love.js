@@ -17,5 +17,5 @@ export default async function ({ addon, console }) {
     rect.width -= 1000000000;
     return rect;
   };
-  if (addon.self.enabledLate) resize();
+  resize();
 }

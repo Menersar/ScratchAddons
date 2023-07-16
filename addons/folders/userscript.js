@@ -1,5 +1,3 @@
-import { escapeHTML } from "../../libraries/common/cs/autoescaper.js";
-
 export default async function ({ addon, console, msg }) {
   // The basic premise of how this addon works is relative simple.
   // scratch-gui renders the sprite selectors and asset selectors in a hierarchy like this:
@@ -84,19 +82,6 @@ export default async function ({ addon, console, msg }) {
     return name;
   };
 
-  const untilInEditor = () => {
-    if (addon.tab.editorMode === "editor") return;
-    return new Promise((resolve, reject) => {
-      const handler = () => {
-        if (addon.tab.editorMode === "editor") {
-          resolve();
-          addon.tab.removeEventListener("urlChange", handler);
-        }
-      };
-      addon.tab.addEventListener("urlChange", handler);
-    });
-  };
-
   const getSortableHOCFromElement = (el) => {
     const nearestSpriteSelector = el.closest("[class*='sprite-selector_sprite-selector']");
     if (nearestSpriteSelector) {
@@ -112,7 +97,7 @@ export default async function ({ addon, console, msg }) {
   const getBackpackFromElement = (el) => {
     const gui = el.closest('[class*="gui_editor-wrapper"]');
     if (!gui) throw new Error("cannot find Backpack");
-    return gui[reactInternalKey].child.sibling.child.stateNode;
+    return gui[reactInternalKey].child.sibling.child.child.stateNode;
   };
 
   const clamp = (n, min, max) => {
@@ -380,10 +365,9 @@ export default async function ({ addon, console, msg }) {
         const [x, y] = PREVIEW_POSITIONS[i];
         let src;
         if (item.asset) {
-          // escaping shouldn't be necessary here but we'll do it anyways for safety
-          src = escapeHTML(item.asset.encodeDataURI());
+          src = item.asset.encodeDataURI();
         } else if (item.costume && item.costume.asset) {
-          src = escapeHTML(item.costume.asset.encodeDataURI());
+          src = item.costume.asset.encodeDataURI();
         } else if (item.url) {
           src = soundIconHref;
         }
@@ -708,7 +692,6 @@ export default async function ({ addon, console, msg }) {
     });
   };
 
-  await addon.tab.scratchClassReady();
   addon.tab.createEditorContextMenu((ctxType, ctx) => {
     if (ctxType !== "sprite" && ctxType !== "costume" && ctxType !== "sound") return;
     const component = ctx.target[addon.tab.traps.getInternalKey(ctx.target)].return.return.return.stateNode;
@@ -1285,8 +1268,6 @@ export default async function ({ addon, console, msg }) {
     };
     backpackInstance.handleDrop = Backpack.prototype.handleDrop.bind(backpackInstance);
   };
-
-  await untilInEditor();
 
   // Backpack
   {

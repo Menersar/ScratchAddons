@@ -1,4 +1,6 @@
 {
+  "editorOnly": true,
+  "noTranslations": true,
   "name": "Customizable default costume editor colors",
   "description": "Changes the default colors and outline size used by the costume editor.",
   "credits": [
@@ -14,18 +16,21 @@
   ],
   "settings": [
     {
+      "dynamic": true,
       "name": "Default fill color",
       "id": "fill",
       "type": "color",
       "default": "#9966FF"
     },
     {
+      "dynamic": true,
       "name": "Default outline color",
       "id": "stroke",
       "type": "color",
       "default": "#000000"
     },
     {
+      "dynamic": true,
       "name": "Default outline size",
       "id": "strokeSize",
       "type": "integer",
@@ -34,6 +39,7 @@
       "default": 4
     },
     {
+      "dynamic": true,
       "name": "Use previous color instead of resetting after switching tools",
       "id": "persistence",
       "type": "boolean",
