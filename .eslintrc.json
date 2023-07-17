@@ -61,7 +61,9 @@
         "message": "Event.path is incompatible with Firefox, use Event.composedPath()"
       }
     ],
-    "no-constant-binary-expression": 2
+    "no-constant-binary-expression": 2,
+    "indent": "off"
+
   },
   "overrides": [
     {
