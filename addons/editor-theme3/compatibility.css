@@ -97,8 +97,8 @@
 }
 
 .sa-block-color-sidekick {
-  --sa-block-background-primary: var(--editorTheme3-sidekick-primary, #ff4c4c);
-  --sa-block-background-secondary: var(--editorTheme3-sidekick-secondary, #e64444);
-  --sa-block-background-tertiary: var(--editorTheme3-sidekick-tertiary, #e64444);
-  --sa-block-field-background: var(--editorTheme3-sidekick-field, #e64444);
+  --sa-block-background-primary: var(--editorTheme3-sidekick-primary, #c6ddaf);
+  --sa-block-background-secondary: var(--editorTheme3-sidekick-secondary, #b7d59b);
+  --sa-block-background-tertiary: var(--editorTheme3-sidekick-tertiary, #63a93d);
+  --sa-block-field-background: var(--editorTheme3-sidekick-field, #63a93d);
 }
