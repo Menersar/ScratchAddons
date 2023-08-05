@@ -2,25 +2,30 @@ export default async function ({ addon, console, msg }) {
   const action = addon.settings.get("action");
   let playerToggled = false;
   let scratchStage;
-  let twIframeContainer = document.createElement("div");
-  twIframeContainer.className = "sa-sidekick-iframe-container";
-  let twIframe = document.createElement("iframe");
-  twIframe.setAttribute("allowtransparency", "true");
-  twIframe.setAttribute("allowfullscreen", "true");
-  twIframe.setAttribute(
+  let sidekickIframeContainer = document.createElement("div");
+  sidekickIframeContainer.className = "sa-sidekick-iframe-container";
+  let sidekickIframe = document.createElement("iframe");
+  sidekickIframe.setAttribute("allowtransparency", "true");
+  sidekickIframe.setAttribute("allowfullscreen", "true");
+  sidekickIframe.setAttribute(
     "allow",
     // !!!
-    "autoplay *; camera https://turbowarp.org; document-domain 'none'; fullscreen *; gamepad https://turbowarp.org; microphone https://turbowarp.org;"
+    // !!!!
+    // !!! s CHANGE !!!
+    // "autoplay *; camera https://turbowarp.org; document-domain 'none'; fullscreen *; gamepad https://turbowarp.org; microphone https://turbowarp.org;"
+    // "autoplay *; camera https://scratch.mit.edu; document-domain 'none'; fullscreen *; gamepad https://scratch.mit.edu; microphone https://scratch.mit.edu;"
+    // "autoplay *; camera https://mixality.github.io; document-domain 'none'; fullscreen *; gamepad https://mixality.github.io; microphone https://mixality.github.io;"
+    "autoplay *; camera https://menersar.github.io; document-domain 'none'; fullscreen *; gamepad https://menersar.github.io; microphone https://menersar.github.io;"
   );
-  twIframe.className = "sa-sidekick-iframe";
-  twIframeContainer.appendChild(sidekickIframe);
+  sidekickIframe.className = "sa-sidekick-iframe";
+  sidekickIframeContainer.appendChild(sidekickIframe);
 
   const button = document.createElement("button");
   button.className = "button sa-sidekick-button";
   button.title = "Sidekick";
 
   function removeIframe() {
-    twIframeContainer.remove();
+    sidekickIframeContainer.remove();
     scratchStage.style.display = "";
     button.classList.remove("scratch");
     playerToggled = false;
@@ -59,12 +64,14 @@ export default async function ({ addon, console, msg }) {
         const fullscreenBackground =
           document.documentElement.style.getPropertyValue("--editorDarkMode-fullscreen") || "white";
         usp.set("fullscreen-background", fullscreenBackground);
-        // !!!
-        const iframeUrl = `https://turbowarp.org/${projectId}/embed?${usp}${search}`;
-        twIframe.src = "";
-        scratchStage.parentElement.prepend(twIframeContainer);
+        // !!! CHANGE !!!
+        // const iframeUrl = `https://turbowarp.org/${projectId}/embed?${usp}${search}`;
+        // const iframeUrl = `https://mixality.github.io/Sidekick/${projectId}/embed?${usp}${search}`;
+        const iframeUrl = `https://menersar.github.io/Sidekick/${projectId}/embed?${usp}${search}`;
+        sidekickIframe.src = "";
+        scratchStage.parentElement.prepend(sidekickIframeContainer);
         // Use location.replace to avoid creating a history entry
-        twIframe.contentWindow.location.replace(iframeUrl);
+        sidekickIframe.contentWindow.location.replace(iframeUrl);
 
         scratchStage.style.display = "none";
         button.classList.add("scratch");
@@ -73,8 +80,10 @@ export default async function ({ addon, console, msg }) {
       } else removeIframe();
     } else {
       window.open(
-        // !!!
-        `https://turbowarp.org/${window.location.pathname.split("/")[2]}${search}`,
+        // !!! CHANGE !!!
+        // `https://turbowarp.org/${window.location.pathname.split("/")[2]}${search}`,
+        // `https://mixality.github.io/Sidekick/${window.location.pathname.split("/")[2]}${search}`,
+        `https://menersar.github.io/Sidekick/${window.location.pathname.split("/")[2]}${search}`,
         "_blank",
         "noopener,noreferrer"
       );

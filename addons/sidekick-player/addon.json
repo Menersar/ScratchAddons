@@ -1,6 +1,6 @@
 {
   "name": "Sidekick button",
-  "description": "Adds a button on project pages to play the project in !!! TurboWarp.org, next to the Remix button.",
+  "description": "!!! CHANGE !!! Adds a button on project pages to play the project in menersar.github.io/Sidekick/Sidekick, next to the Remix button.",
   "info": [
     {
       "type": "notice",
@@ -9,7 +9,7 @@
     },
     {
       "type": "notice",
-      "text": "Sidekick has separate cloud data servers. \"Replace player\" mode will send your Scratch username to !!! TurboWarp.org for use in cloud data.",
+      "text": "!!! CHANGE !!! Sidekick has separate cloud data servers. \"Replace player\" mode will send your Scratch username to menersar.github.io/Sidekick for use in cloud data.",
       "id": "cloudData"
     }
   ],

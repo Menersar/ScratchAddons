@@ -1,13 +1,13 @@
 .preview .sa-sidekick-button {
   padding: 0px 5px 0px 11px;
-  background: #ff4d4d;
+  background: #76b452;
   margin-top: 0;
   border-radius: 0.25rem;
   height: 2.5rem;
   font-size: 0.875rem;
 }
 .preview .sa-sidekick-button.scratch {
-  background: #f8aa36;
+  background: #8fc8cf;
 }
 .preview .sa-sidekick-button:before {
   background-image: url(icon.svg);
