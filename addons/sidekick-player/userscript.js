@@ -15,7 +15,7 @@ export default async function ({ addon, console, msg }) {
     // "autoplay *; camera https://turbowarp.org; document-domain 'none'; fullscreen *; gamepad https://turbowarp.org; microphone https://turbowarp.org;"
     // "autoplay *; camera https://scratch.mit.edu; document-domain 'none'; fullscreen *; gamepad https://scratch.mit.edu; microphone https://scratch.mit.edu;"
     // "autoplay *; camera https://mixality.github.io; document-domain 'none'; fullscreen *; gamepad https://mixality.github.io; microphone https://mixality.github.io;"
-    "autoplay *; camera https://menersar.github.io; document-domain 'none'; fullscreen *; gamepad https://menersar.github.io; microphone https://menersar.github.io;"
+    "autoplay *; camera https://menersar.github.io/Sidekick; document-domain 'none'; fullscreen *; gamepad https://menersar.github.io/Sidekick; microphone https://menersar.github.io/Sidekick;"
   );
   sidekickIframe.className = "sa-sidekick-iframe";
   sidekickIframeContainer.appendChild(sidekickIframe);
@@ -70,6 +70,7 @@ export default async function ({ addon, console, msg }) {
         const iframeUrl = `https://menersar.github.io/Sidekick/${projectId}/embed?${usp}${search}`;
         sidekickIframe.src = "";
         scratchStage.parentElement.prepend(sidekickIframeContainer);
+        // !!! ???
         // Use location.replace to avoid creating a history entry
         sidekickIframe.contentWindow.location.replace(iframeUrl);
 

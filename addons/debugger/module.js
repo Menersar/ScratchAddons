@@ -33,6 +33,7 @@ const pauseThread = (thread) => {
 
   // Pausing a thread now works by just setting its status to STATUS_PROMISE_WAIT.
   // At the start of each frame, we make sure each paused thread is still paused.
+  // !!! 'really the best way to implement this' (really)? ???
   // This is really the best way to implement this.
   // Converting thread.status into a getter/setter causes Scratch's sequencer to permanently
   //    perform significantly slower in some projects. I think this is because it causes some

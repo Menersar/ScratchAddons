@@ -40,12 +40,17 @@
 
 .sa-sidekick-iframe {
   width: 100%;
+  /* !!! ??? */
+  /* scratch-gui/src/lib/screen-utils.js, line 57
+     The stage height should be 360px
+     innerHeight = 360px + 44px + 12px = 416px = 100% + 10px */
   height: calc(100% + 10px);
   /* Move the stage up to align it with the project description */
   margin-top: -3px;
 
   border: none;
 
+  /* !!! Exact reason for that? ??? */
   /* Transparency only works if the iframe has the same color-scheme
      as the document inside */
   color-scheme: light;
