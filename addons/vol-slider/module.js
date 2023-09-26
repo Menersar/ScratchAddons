@@ -45,6 +45,12 @@ export const onVolumeChanged = (callback) => {
 };
 
 const gotAudioEngine = (audioEngine) => {
+  // !!! 'gracefully handle missing scratch-audio' (https://github.com/TurboWarp/addons/commit/94039c66032ad13796ba9239d25c448fae08b99f), etc.(?!)? ???
+  // Sidekick: Handling of missing scratch-audio.
+  if (!audioEngine) {
+    console.error('Could not get audio engine; sound-related addons will not work.');
+    return;
+  }
   gainNode = audioEngine.inputNode.gain;
   gainNode.value = volumeBeforeFinishSetup;
 };
